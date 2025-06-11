@@ -28,7 +28,7 @@ const AddProduct = () => {
     formData.append('price',price)
     formData.append('offerPrice',offerPrice)
 
-    for (let i = 0; i < files.length; i++) {
+    for (let i = 0; i < files.length; i++) { 
       formData.append('images',files[i])     
     }
     
@@ -36,7 +36,7 @@ const AddProduct = () => {
       
       const token = await getToken()
 
-      const { data } = await axios.post('/api/product/app',formData,{headers:{Authorization:'Bearer ${token}'}})
+      const { data } = await axios.post('/api/product/add ',formData,{headers:{Authorization:`Bearer ${token}`}})
 
       if (data.succes) {
         toast.succes(data.message)
