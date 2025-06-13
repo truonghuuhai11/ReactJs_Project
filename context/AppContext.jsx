@@ -27,12 +27,12 @@ export const AppContextProvider = (props) => {
 
     const fetchProductData = async () => {
         try {
-            
-            const{data} = await axios.get('/apiproduct/list')
+
+            const { data } = await axios.get('/apiproduct/list')
 
             if (data.success) {
                 setProducts(data.products)
-            } else{
+            } else {
                 toast.error(data.message)
             }
 
@@ -45,22 +45,22 @@ export const AppContextProvider = (props) => {
         try {
 
             if (user.publicMetadata.role === 'seller') {
-            setIsSeller(true)
-        }
+                setIsSeller(true)
+            }
 
-        const token = await getToken()
+            const token = await getToken()
 
-        const {data} = await axios.get('/api/user/data',{ headers: { Authorization: `Bearer ${token}`} })
-        
-        if (data.success) {
-            setUserData(data.user)
-            setCartItems(data.user.cartItems)
-        } else {
-            toast.error(data.message)
-        }
-            
+            const { data } = await axios.get('/api/user/data', { headers: { Authorization: `Bearer ${token}` } })
+
+            if (data.success) {
+                setUserData(data.user)
+                setCartItems(data.user.cartItems)
+            } else {
+                toast.error(data.message)
+            }
+
         } catch (error) {
-        toast.error(error.message)
+            toast.error(error.message)
 
         }
     }
@@ -75,13 +75,13 @@ export const AppContextProvider = (props) => {
             cartData[itemId] = 1;
         }
         setCartItems(cartData);
-        if (user ) {
+        if (user) {
             try {
                 const token = await getToken()
-                await axios.post('/api/cart/update', {cartData}, {headers:{getAuthorization: `Bearer ${token}`}} )
+                await axios.post('/api/cart/update', { cartData }, { headers: { getAuthorization: `Bearer ${token}` } })
                 toast.success('Cart Update')
             } catch (error) {
-                toast.error(error.message)        
+                toast.error(error.message)
             }
         }
     }

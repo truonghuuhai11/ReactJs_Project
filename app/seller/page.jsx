@@ -22,21 +22,21 @@ const AddProduct = () => {
 
     const formData = new FormData()
 
-    formData.append('name',name)
-    formData.append('description',description)
-    formData.append('category',category)
-    formData.append('price',price)
-    formData.append('offerPrice',offerPrice)
+    formData.append('name', name)
+    formData.append('description', description)
+    formData.append('category', category)
+    formData.append('price', price)
+    formData.append('offerPrice', offerPrice)
 
-    for (let i = 0; i < files.length; i++) { 
-      formData.append('images',files[i])     
+    for (let i = 0; i < files.length; i++) {
+      formData.append('images', files[i])
     }
-    
+
     try {
-      
+
       const token = await getToken()
 
-      const { data } = await axios.post('/api/product/add ',formData,{headers:{Authorization:`Bearer ${token}`}})
+      const { data } = await axios.post('/api/product/add ', formData, { headers: { Authorization: `Bearer ${token}` } })
 
       if (data.succes) {
         toast.succes(data.message)
