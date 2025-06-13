@@ -125,10 +125,30 @@ export const AppContextProvider = (props) => {
     }, [])
 
     useEffect(() => {
-        if (user) {
-            fetchUserData()
-        }
-    }, [user])
+        const createUserIfNotExists = async () => {
+            if (!user) return;
+
+            try {
+                const token = await getToken();
+
+                await axios.post('/api/user/create', {
+                    name: user.fullName,
+                    email: user.primaryEmailAddress.emailAddress,
+                    imageUrl: user.imageUrl
+                }, {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+
+                // Sau khi tạo user xong, fetch lại dữ liệu
+                fetchUserData();
+
+            } catch (error) {
+                toast.error(error.message);
+            }
+        };
+
+        createUserIfNotExists();
+    }, [user]);
 
     const value = {
         user, getToken,

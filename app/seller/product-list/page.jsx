@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useAppContext } from "@/context/AppContext";
 import Footer from "@/components/seller/Footer";
 import Loading from "@/components/Loading";
+import { toast } from 'react-toastify';
 
 const ProductList = () => {
 
@@ -34,9 +35,9 @@ const ProductList = () => {
 
   useEffect(() => {
     if (user) {
-    fetchSellerProduct();  
+      fetchSellerProduct();
     }
-    
+
   }, [user])
 
   return (
